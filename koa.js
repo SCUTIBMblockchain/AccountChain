@@ -3,7 +3,7 @@ const app =new koa();
 const json = require('koa-json')
 const bodyparser = require('koa-bodyparser')()
 const logger = require('koa-logger')
-const router = require('./app/routes')
+const router = require('./app/routes/api')
 //middleware
 app.use(bodyparser)
 app.use(json())
