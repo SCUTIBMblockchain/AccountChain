@@ -1,0 +1,49 @@
+{
+  "name": "accountchain",
+  "version": "1.0.0",
+  "description": "AccountChain project",
+  "private": true,
+  "author": "Kyon",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.1",
+    "bufferutil": "^3.0.2",
+    "composer-client": "^0.11.3",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.3",
+    "express": "^4.15.2",
+    "express-bearer-token": "^2.1.0",
+    "express-jwt": "^5.1.0",
+    "express-session": "^1.15.2",
+    "fabric-ca-client": "^1.0.0",
+    "fabric-client": "^1.0.0",
+    "fs-extra": "^2.0.0",
+    "jsonwebtoken": "^7.3.0",
+    "koa":"^2.4.1",
+    "koa-bodyparser": "^2.3.0",
+    "koa-history-api-fallback": "^0.1.3",
+    "koa-json": "^1.1.3",
+    "koa-jwt": "^1.2.0",
+    "koa-logger": "^1.3.0",
+    "koa-router": "5.4",
+    "koa-static": "^2.0.0",
+    "log4js": "^0.6.38",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.5.1",
+    "utf-8-validate": "^3.0.3",
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-html": "^3.0.0",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "url-loader": "^0.5.8"
+  }
+}
