@@ -1,26 +1,14 @@
 const koa =require('koa');
 const app =new koa();
-const router = require('koa-router')();
-const co = require('co');
-const convert = require('koa-convert');
-const json = require('koa-json');
-const onerror =require('koa-onerror');
-const bodyparser = require('koa-bodyparser')();
-const logger = require('koa-logger');
-const server = require('koa-static');
-const index = require('./routes/index');
-const users = require('./routes/users');
-
+const json = require('koa-json')
+const bodyparser = require('koa-bodyparser')()
+const logger = require('koa-logger')
+const router = require('./app/routes')
 //middleware
-
-app.use(convert(bodyparser));
-app.use(convert(json()));
-app.use(convert(logger()));
-app.use(convert(server(__dirname+'/public')));
-router.use('/',index.routes(),index.allowedMethods());
-router.use('/users',users.routes(),users.allowedMethods());
-
-app.use(router.routes(),router.allowedMethods());
-
-
+app.use(bodyparser)
+app.use(json())
+app.use(logger())
+app.use(router.routes())
+app.listen(8889);
+console.log('app started at port 8889...');
 module.exports = app;
