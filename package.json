@@ -20,15 +20,5 @@
     "koa-logger": "latest",
     "koa-router": "latest",
     "request": "latest"
-  },
-  "devDependencies": {
-    "eslint": "latest",
-    "eslint-friendly-formatter": "latest",
-    "eslint-loader": "latest",
-    "eslint-plugin-html": "latest",
-    "eslint-config-standard": "latest",
-    "eslint-plugin-promise": "latest",
-    "eslint-plugin-standard": "latest",
-    "url-loader": "latest"
   }
 }
