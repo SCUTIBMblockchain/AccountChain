@@ -19,6 +19,7 @@
     "koa-jwt": "latest",
     "koa-logger": "latest",
     "koa-router": "latest",
-    "request": "latest"
+    "request": "latest",
+    "ws": "^3.3.3"
   }
 }
