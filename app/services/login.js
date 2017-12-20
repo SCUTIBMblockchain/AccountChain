@@ -1,5 +1,6 @@
 
 var queryBlockchain = require('../network/queryBlockchain.js')
+var loginIn = require('../network/loginIn.js')
 function count(obj) {
     var objType = typeof obj
     if (objType === 'string') {
@@ -29,12 +30,14 @@ const checkAccountExist = async function (username, org) {
 
 
 const firstLogin = async function (username, password, org) {
-    const response = await loginByOrg(username, password, org)
+    const response = await loginIn.loginByOrg(username, password, org)
     var result = Object.create(Result)
     if (response.state == true) {
         result.state = true
         result.info = response.info
-        //授权
+        //TODO...get newOrg
+        var newOrg = await loginIn.getThisOrg()
+        await queryBlockchain.authorizeOrg(username, password, org, newOrg)
         try {
             await queryBlockchain.add2Blockchain(username, password, org, result.info)//添加到区块链
         } catch (error) {
@@ -68,7 +71,7 @@ const usualLogin = async function (username, password, org) {
 }
 
 const noPwdLogin = async function (username, password, org) {
-    const response = await loginByOrg(username, password, org)
+    const response = await loginIn.loginByOrg(username, password, org)
     var result = Object.create(Result)
     if (response.state == true) {
         result.state = true

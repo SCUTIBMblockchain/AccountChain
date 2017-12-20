@@ -16,11 +16,15 @@ const getLoginInfoInBlockchain = async function (username, org) {
 const save2Blockchain = async function (username, password, org, info) {
 
 }//void
+const authorizeOrg = async function (params) {
+
+}//void
 module.exports = {
     'add2Blockchain': add2Blockchain,
     'queryAccountExist': queryAccountExist,
     'queryPwdExist': queryPwdExist,
     'validateInBlockchain': validateInBlockchain,
     'getLoginInfoInBlockchain': getLoginInfoInBlockchain,
-    'save2Blockchain': save2Blockchain
+    'save2Blockchain': save2Blockchain,
+    'authorizeOrg': authorizeOrg
 }

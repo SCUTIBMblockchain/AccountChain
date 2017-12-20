@@ -1,5 +1,3 @@
-import { create } from 'domain';
-
 /**
  *   *Blockchain 都是需要改成chaincode接口
  */
