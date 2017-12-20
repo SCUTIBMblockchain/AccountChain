@@ -3,6 +3,6 @@ var edit = require('../controllers/edit.js')
 var login = require('../controllers/login.js')
 
 router.post('/log', login)
-router.post('/edit', edit)
-
+router.post('/edit', edit.edit)
+router.post('/changePassword', edit.changePassword)
 module.exports = router

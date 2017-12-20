@@ -8,6 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "bcryptjs": "latest",
     "body-parser": "latest",
     "cookie-parser": "latest",
@@ -15,10 +16,13 @@
     "koa": "latest",
     "koa-bodyparser": "latest",
     "koa-history-api-fallback": "latest",
+    "koa-http-request": "^2.2.0",
     "koa-json": "latest",
     "koa-jwt": "latest",
     "koa-logger": "latest",
     "koa-router": "latest",
-    "request": "latest"
+    "request": "^2.83.0",
+    "request-promise-native": "^1.0.5",
+    "ws": "^3.3.3"
   }
 }
