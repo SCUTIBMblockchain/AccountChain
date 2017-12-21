@@ -19,10 +19,7 @@ var Result = {
     'info': null,
     'token': null
 }
-const getAccountInfo = async function (username, org){
-}
-const checkAccount = async function (account) {
-}
+
 
 const firstLogin = async function (username, password, org) {
     const response = await loginIn.loginByOrg(username, password, org)
@@ -32,17 +29,20 @@ const firstLogin = async function (username, password, org) {
         result.info = response.info
         //TODO...get newOrg
         var newOrg = await loginIn.getThisOrg()
-        await queryBlockchain.authorizeOrg(username, password, org, newOrg)
         try {
+            // TODO 调整add2BLockchain
             if (await queryBlockchain.add2Blockchain(username, password, org, result.info))//添加到区块链
                 console.log('add to Blockchain success.')
         } catch (error) {
+            //TODO: 设定返回值
             console.log(error)
         }
 
         //Token
     } else {
+        // TODO: change state
         result.state = false;
+        
     }
     return result
 }
@@ -50,6 +50,7 @@ const authLogin = async function (username, password, org) {
 }
 
 const usualLogin = async function (username, password, org) {
+    // 调整登陆验证
     var response = queryBlockchain.validateInBlockchain(username, password, org)
     var result = Object.create(Result)
     if (response.state == true) {
@@ -82,8 +83,6 @@ const noPwdLogin = async function (username, password, org) {
 }
 
 module.exports = {
-    'checkAccount': checkAccount,
-    'getAccountInfo': getAccountInfo,
     'firstLogin': firstLogin,
     'usualLogin': usualLogin,
     'noPwdLogin': noPwdLogin,
