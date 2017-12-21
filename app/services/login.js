@@ -14,25 +14,15 @@ function count(obj) {
     return false
 }
 
-let Result = {
+var Result = {
     'state': false,
     'info': null,
     'token': null
 }
-
-
-const checkAccountExist = async function (username, org) {
-    const result = await queryBlockchain.queryAccountExist(username, org)         //默认chaincodeAPI是queryBlockchain
-    if (result == true) {
-        console.log(username + ' login success.')
-        return 1;
-    }
-    else {
-        console.log(username+' login fail.')
-        return 0;
-    }
+const getAccountInfo = async function (username, org){
 }
-
+const checkAccount = async function (account) {
+}
 
 const firstLogin = async function (username, password, org) {
     const response = await loginIn.loginByOrg(username, password, org)
@@ -56,10 +46,7 @@ const firstLogin = async function (username, password, org) {
     }
     return result
 }
-
-const passwordExist = async function (username, org) {
-    const result = await queryBlockchain.queryPwdExist(username, org)         //默认chaincodeAPI是queryBlockchain
-    return result                                               //返回是bool
+const authLogin = async function (username, password, org) {
 }
 
 const usualLogin = async function (username, password, org) {
@@ -95,9 +82,11 @@ const noPwdLogin = async function (username, password, org) {
 }
 
 module.exports = {
-    'checkAccountExist': checkAccountExist,
+    'checkAccount': checkAccount,
+    'getAccountInfo': getAccountInfo,
     'firstLogin': firstLogin,
-    'passwordExist': passwordExist,
     'usualLogin': usualLogin,
-    'noPwdLogin': noPwdLogin
+    'noPwdLogin': noPwdLogin,
+    'authLogin': authLogin,
+    'failLogin': failLogin
 }
