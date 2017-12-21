@@ -1,6 +1,3 @@
-/**
- *   *Blockchain 都是需要改成chaincode接口
- */
 var loginIn = require('../services/login.js')
 // var bodyParser =require('koa-bodyparser')
 let Result = {
