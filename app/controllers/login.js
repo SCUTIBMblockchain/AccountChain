@@ -1,38 +1,33 @@
 var loginIn = require('../services/login.js')
+var checkAccount = require('../models/account').checkAccount
+var setOrg = require('../../config/org-config').setOrg
+// todo add 函数
+var getAccountInfo = require('../network/account')
 // var bodyParser =require('koa-bodyparser')
-let Result = {
-    'state': false,
-    'info': null,
-    'token': null
+var loginFnc = {
+    'FIRST': loginIn.firstLogin, // 未授权,区块链未保存
+    'NOAUTH': loginIn.authLogin, // 未授权,区块链已保存
+    'USUAL': loginIn.usualLogin, // 已授权,区块链已保存
+    'PWCHANGE': loginIn.noPwdLogin, // 区块链已保存,密码被更新
+    'FAIL': loginIn.failLogin   // 错误, 可能是密码错误,或服务器错误
 }
-let state = -1;
 const login = async function (ctx, next) {
+    var state = 1
+    var result = ''
 
     var name = ctx.request.body.name || '',
         password = ctx.request.body.password || '',
         org = ctx.request.body.org || '';
-    state = await loginIn.checkAccountExist(name, org);
-    var result = Object.create(Result)             //查询区块链是否有账号
-    if (state == 0) {
-        result = await loginIn.firstLogin(name, password, org);
-        //TODO...
-        if (result.state == true) {
-            //登陆成功
-        } else {
-            //登录失败
-        }
+    // todo 确认当前访问的组织
+    // setOrg()
+    var account = await getccountInfo(name, org)
+    var acountState = checkAccount(account)
+    var loginResult =  await loginFnc[accountState.state](accountState.info)
 
-    } else if (state == 1) {
-        if (loginIn.passwordExist(name, org)) {
-            result = await loginIn.usualLogin(name, password, org);     //区块链登录
-            //TODO...
-        } else {
-            result = await loginIn.noPwdLogin(name, password, org);     //密码不存在（刚修改密码
-            //TODO...
-        }
-
-    } else {
-        ctx.response.body = `<h1>Connect Failed. 404</h1>`;           //连接失败,之后再搞
+    ctx.body = {
+        state: loginResult.state,
+        token: loginResult.token,
+        info: loginResult.info
     }
 }
 

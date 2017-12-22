@@ -26,6 +26,9 @@ const comparePwd = function (password) {
         console.log(err)
     })
 }//bool async
+const existy = function (thing) {
+    
+}
 module.exports = {
     'getToken': getToken,
     'hashPwd': hashPwd,

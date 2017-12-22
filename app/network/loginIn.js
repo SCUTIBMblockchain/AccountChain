@@ -1,5 +1,5 @@
 var request=require('request')
-const loginByOrg=async function (username,password,org) {
+const loginByOrg = async function (username,password,org) {
     var options = {
         uri: '',                //todo
         qs: {
