@@ -1,87 +1,112 @@
 var queryBlockchain = require('../network/queryBlockchain.js')
+var getOrg = require('../../config/org-config').getOrg
 var loginIn = require('../network/loginIn.js')
-function count(obj) {
-    var objType = typeof obj
-    if (objType === 'string') {
-        return obj.length
-    } else if (objType === 'object') {
-        var objLen = 0
-        for (var i in obj) {
-            objLen++
-        }
-        return objLen
-    }
-    return false
-}
+var account = require('../network/account')
+var getToken = require('../models/tool').getToken
 
 var Result = {
-    'state': false,
+    'state': 1,
     'info': null,
     'token': null
 }
 
 
-const firstLogin = async function (username, password, org) {
+const firstLogin = async function (accountInfo) {
+    var username = accountInfo.username
+    var password = accountInfo.password
+    var org = accountInfo.organization
+    // todo 修改返回值
     const response = await loginIn.loginByOrg(username, password, org)
     var result = Object.create(Result)
-    if (response.state == true) {
-        result.state = true
-        result.info = response.info
-        //TODO...get newOrg
-        var newOrg = await loginIn.getThisOrg()
-        try {
-            // TODO 调整add2BLockchain
-            if (await queryBlockchain.add2Blockchain(username, password, org, result.info))//添加到区块链
-                console.log('add to Blockchain success.')
-        } catch (error) {
-            //TODO: 设定返回值
-            console.log(error)
+    if (response.state === true) {
+        var newOrg = getOrg()
+        // todo 修改函数
+        var addResult = await queryBlockchain.add2Blockchain(username, password, org, newOrg, result.info)
+        if(addResult.state === true){
+            result.state = 1
+            result.info = response.info
+            result.token = getToken(org, username)
+            return result
+        } else {
+            return failLogin(addResult)
         }
-
         //Token
     } else {
-        // TODO: change state
-        result.state = false;
-        
+        return failLogin(response)
     }
-    return result
 }
-const authLogin = async function (username, password, org) {
-}
-
-const usualLogin = async function (username, password, org) {
-    // 调整登陆验证
-    var response = queryBlockchain.validateInBlockchain(username, password, org)
-    var result = Object.create(Result)
-    if (response.state == true) {
-        result.info = queryBlockchain.getLoginInfoInBlockchain(username, org)
-        result.state = true
-        //TODO...登录成功
+const authLogin = async function (accountInfo) {
+    var username = accountInfo.username
+    var password = accountInfo.password
+    var org = accountInfo.organization
+    var authorizeResult = await queryBlockchain.authorizeOrg(username, org, getOrg())
+    if(authorizeResult){
+    // todo 新增该函数
+        var shareInfo =await queryBlockchain.queryShareInfo(shareInfoId)
+        result.state = 1
+        result.token = getToken(org, username)
+        return result 
     } else {
-        result.state = false
-        //TODO...登录失败
+        return failLogin(authorizeResult)
     }
+}
+
+const usualLogin = async function (accountInfo) {
+    var username = accountInfo.username
+    var password = accountInfo.password
+    var org = accountInfo.organization
+    // 调整登陆验证
+    var result = Object.create(Result)
+    result.token = getToken(username, org)
     return result
 }
 
-const noPwdLogin = async function (username, password, org) {
+const noPwdLogin = async function (accountInfo) {
+    var username = accountInfo.username
+    var password = accountInfo.password
+    var org = accountInfo.organization
+    var auth = accountInfo.auth
+    // * chaincode shareInfo 应该更改
+    var shareInfoId = accountInfo.sharedInfo
     const response = await loginIn.loginByOrg(username, password, org)
     var result = Object.create(Result)
     if (response.state == true) {
-        result.state = true
-        result.info = queryBlockchain.getLoginInfoInBlockchain(username, org)
-        try {
-            if (await queryBlockchain.save2Blockchain(username, password, org, result.info))//保存到区块链
-                console.log('save to Blockchain success.')
-        } catch (error) {
-            console.log(error)
+        // todo 保存新密码函数
+        var saveResult = account.savePassword(username, password, org)//保存到区块链
+        if (saveResult == true) {
+            if(auth){
+                result.state = 1
+                result.token = getToken(org, username)
+                return result
+            }else{
+                return authLogin(accountInfo)
+            }
+        } else {
+            return failLogin(response)
         }
     } else {
-        result.state = false;
+        return failLogin(response)
     }
-    return result
 }
-
+const failLogin = function (res) {
+    var result = Object.create(Result)
+    switch (res.state) {
+        case 'PASSWORDWRONG':
+            result.state = 2
+            break;
+        case 'CHAINCODEERROR':
+            result.state = 0
+            result.info = res.info
+            break;
+        case 'SERVERERROR':
+            result.state = 0
+            result.info = res.info
+        default:
+            result.state = 0
+            result.info = 'the reason is unknow'
+            break;
+    }
+}
 module.exports = {
     'firstLogin': firstLogin,
     'usualLogin': usualLogin,

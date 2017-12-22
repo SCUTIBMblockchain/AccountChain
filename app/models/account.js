@@ -17,10 +17,12 @@ const checkAccount = function (accounts, password) {
             if(validAuth(account.authorizedApps, getOrg())){
                 result.state = 'USUAL'
             } else {
-                result.state = 'NOAUTH'            }
+                result.state = 'NOAUTH'            
+            }
         } else {
             result.state = 'FAIL'
-            result.info = 'PASSWORDWRONG'//密码错误
+            result.info.state = 'PASSWORDWRONG'//密码错误
+            result.info.message = 'the answer is wrong'
         }
     }else{
         result.state = 'PWCHANGE'
@@ -38,7 +40,7 @@ const validPassword = function (password, passwordToValid) {
     return password==passwordToValid
 }
 const validAuth = function (authOrgs, org) {
-   if([].find(org)){
+   if(authOrgs.find(org)){
        return true
    }else {
        return false

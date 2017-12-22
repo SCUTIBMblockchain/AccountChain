@@ -1,5 +1,6 @@
 var loginIn = require('../services/login.js')
 var checkAccount = require('../models/account').checkAccount
+var setOrg = require('../../config/org-config').setOrg
 // todo add 函数
 var getAccountInfo = require('../network/account')
 // var bodyParser =require('koa-bodyparser')
@@ -17,8 +18,8 @@ const login = async function (ctx, next) {
     var name = ctx.request.body.name || '',
         password = ctx.request.body.password || '',
         org = ctx.request.body.org || '';
-    //todo 确认当前访问的组织
-
+    // todo 确认当前访问的组织
+    // setOrg()
     var account = await getccountInfo(name, org)
     var acountState = checkAccount(account)
     var loginResult =  await loginFnc[accountState.state](accountState.info)
