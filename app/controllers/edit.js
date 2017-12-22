@@ -4,8 +4,15 @@ const edit = async function (ctx, next) {
    var info = {
     org: ctx.request.body.org,
     username: ctx.request.body.username,
+    token: ctx.request.body.token,
     key: ctx.request.body.key,
     newValue: ctx.request.body.value
+   }
+   if(!info.token) {
+       // todo 解密
+       var userInfo = JSON.parse(userInfo)
+       info.org = userInfo.org
+       info.username = userInfo.username
    }
    var loginInfo = ctx.request.body.loginInfo
    var state = ''
