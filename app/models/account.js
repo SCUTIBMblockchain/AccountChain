@@ -1,5 +1,6 @@
 const auth = require('../network/queryBlockchain').authorizeOrg
 const getOrg = require('../../config/org-config').getOrg
+const hash = require('../models/tool').comparePwdBcrypt
 const checkAccount = function (accounts, password) {
     var result = {}
     var account = accounts[0]
@@ -37,7 +38,7 @@ const checkAccount = function (accounts, password) {
 
 // todo 验证密码,加上加密
 const validPassword = function (password, passwordToValid) {
-    return password==passwordToValid
+    return hash(passwordToValid, password)
 }
 const validAuth = function (authOrgs, org) {
    if(authOrgs.find((value)=>{

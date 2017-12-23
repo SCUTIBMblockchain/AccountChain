@@ -3,7 +3,7 @@ var getOrg = require('../../config/org-config').getOrg
 var loginIn = require('../network/loginIn.js')
 var account = require('../network/account')
 var getToken = require('../models/tool').getToken
-
+var hash = require('../models/tool').hashPwdBcrypt
 var Result = {
     'state': 1,
     'info': null,
@@ -16,6 +16,7 @@ const firstLogin = async function (accountInfo) {
     var password = accountInfo.password
     var org = accountInfo.org
     const response = await loginIn.loginByOrg(username, password, org)
+    password = hash(password)
     var result = Object.create(Result)
     if (response.state === true) {
         var newOrg = getOrg()
@@ -56,7 +57,7 @@ const usualLogin = async function (accountInfo) {
     // 调整登陆验证
     var result = Object.create(Result)
     result.state = 1
-    result.token = getToken(username, org)
+    result.token = getToken(org, username)
     return result
 }
 

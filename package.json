@@ -9,9 +9,10 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
-    "bcryptjs": "latest",
+    "bcryptjs": "^2.4.3",
     "body-parser": "latest",
     "cookie-parser": "latest",
+    "crypto-js": "^3.1.9-1",
     "jsonwebtoken": "latest",
     "koa": "latest",
     "koa-bodyparser": "latest",
@@ -24,7 +25,6 @@
     "koa2-cors": "^2.0.5",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5",
-    "ws": "^3.3.3",
-    "crypto-js": "latest"
+    "ws": "^3.3.3"
   }
 }
