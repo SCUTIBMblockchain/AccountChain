@@ -1,0 +1,224 @@
+.main {
+    background-image: url("./nv_1.jpg");
+    height: 529px;
+    background-color: #f4f4f4;
+    background-position: center top;
+  }
+  div {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+  .header {
+    height: 70px;
+    overflow: hidden;
+    border-bottom: 1px solid #e5e5e5;
+    background: #fff;
+  }
+  .w {
+    width: 960px;
+    min-width: 960px;
+    overflow: hidden;
+    text-align: left;
+    zoom: 1;
+  }
+  .logo {
+      top: 0%;
+    width: 365px;
+    height: 70px;
+  }
+  .logo a {
+    width: 215px;
+    height: 70px;
+  }
+  .logo,
+  .logo a,
+  .logo span {
+    display: inline;
+    overflow: hidden;
+  }
+  .loginForm {
+    width: 367px;
+    margin: 45px 0 0 64px;
+    background: #fff;
+    padding: 0;
+}
+.loginTit {
+    padding: 0;
+    height: 52px;
+    background: #fafafa;
+    border-left: 1px solid #d3d3d3;
+    margin:0；
+}
+.loginInner {
+    padding: 15px 20px 20px 19px;
+    border: 1px solid #d3d3d3;
+    border-top: none;
+}
+.login_zh, .login_mm, .login_code, .login_zh_o, .login_mm_o {
+    padding: 8px 0 0 0;
+}
+.loginSelf {
+    zoom: 1;
+    height: 22px;
+    overflow: hidden;
+    line-height: 20px;
+    padding-left: 89px;
+    font-size: 0;
+    color: #a4a4a4;
+}
+.loginInner .btnsBox {
+    zoom: 1;
+    overflow: hidden;
+    line-height: 28px;
+    margin-top: 15px;
+    padding-left: 89px;
+}
+.openId {
+    margin: 20px 0 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e8e8e8;
+    text-align: center;
+}
+.goReg {
+    height: 22px;
+    line-height: 22px;
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+    padding: 0;
+}
+.openId p .lTit {
+    float: left;
+    display: inline;
+    width: 80px;
+    height: 22px;
+    overflow: hidden;
+    margin-left: -89px;
+    color: #a4a4a4;
+    text-align: right;
+    font-size: 13px;
+}
+.openId p a {
+    float: left;
+    display: inline;
+    height: 22px;
+    overflow: hidden;
+    color: #666;
+    white-space: nowrap;
+    width: 70px;
+}
+.openId .icon_openId {
+    float: left;
+    display: inline;
+    margin-top: 3px;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: all .2s;
+}
+.loginInner .lab {
+    float: left;
+    display: inline;
+    width: 80px;
+    height: 32px;
+    line-height: 32px;
+    margin-right: 9px;
+    font-size: 14px;
+    color: #666;
+    text-align: right;
+}
+.loginInner .login_inpBox {
+    position: relative;
+    float: left;
+    display: inline;
+    width: 220px;
+    height: 30px;
+    border: 1px solid #d3d3d3;
+}
+.loginInner .login_inpBox label.login_label {
+    position: absolute;
+    z-index: 1;
+    z-index: 3\9;
+    top: 5px;
+    left: 10px;
+    display: none;
+    line-height: 20px;
+    font-size: 14px;
+    color: #a4a4a4;
+    cursor: text;
+}
+.loginInner .login_inpBox input {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    line-height: 20px;
+    padding: 5px 0;
+    border: none;
+    background-color: rgba(255,255,255,0);
+    font-size: 14px;
+    color: #333;
+    text-indent: 10px;
+    top: 5px;
+    padding: 0;
+}
+.f_white {
+    color: #fff;
+}
+.loginInner .btnLogin {
+    float: left;
+    display: inline;
+    width: 100px;
+    height: 26px;
+    line-height: 26px;
+    margin-right: 20px;
+    border: 1px solid #ff546a;
+    background: #ff546a;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+}
+.fn-clear:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+.loginTit li.default {
+    width: 365px;
+    border: 1px solid #d3d3d3;
+    border-left: 0;
+    background-color: #fafafa;
+    color: #000;
+    text-align: left;
+    text-indent: 40px;
+    cursor: default;
+    height: 50px;
+    line-height:50px;
+}
+.loginSelf input {
+    float: left;
+    display: inline;
+    margin-top: 2px;
+    margin-right: 6px;
+    _margin-top: 0;
+    _margin-right: 2px;
+}
+.openId p {
+    zoom: 1;
+    overflow: hidden;
+    line-height: 22px;
+}
+.loginSelf, .loginInner .btnsBox, .openId p {
+    padding-left: 89px;
+}
+.shareXF {
+    zoom: 1;
+    overflow: hidden;
+    margin-bottom: 30px;
+    padding: 12px 0 0;
+    font-family: 'Microsoft Yahei';
+}
