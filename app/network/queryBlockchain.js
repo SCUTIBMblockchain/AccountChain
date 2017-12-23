@@ -1,142 +1,45 @@
 const request = require('request-promise-native')
-const add2Blockchain = async function (username, password, org, info) {
+const add2Blockchain = async function (username, password, org, orgNew, info) {
+    info.id = org+username
     var block = {
         'username': username,
         'password': password,
         'org': org,
-        'info': info
+        'orgNew': orgNew,
+        'sharedInfo': info
     }
     var options = {
         method: 'POST',
-        url: '',                //todo
+        url: 'http://localhost:3000/api/org.acme.model.saveTranc',
         body: block,
         json: true
     };
-    var response = await request(options).catch((err) => {
-        console.log(err)
-        return false
+    var response = await request(options).then((response)=>{
+        return {
+            returnSuccess: true,
+            info: res
+        }
     })
-    if (response) {
-        cons.log('receive log :' + response)
-        return true
-    }
-}//void 
-const queryAccountExist = async function (username, org) {
-    var options = {
-        uri: '',                //todo
-        qs: {
-            username: username,
-            org: org
-            //token
-        },
-        headers: {
-            'User-Agent': 'Request-Promise'
-        },
-        json: true
-    };
-    request(options)
-        .then(function (repos) {
-            if (repos.length > 0)
-                return true
-            else return false
-        })
-        .catch(function (err) {
-            console.log(err)
-            return false
-        });
-}//bool
-const queryPwdExist = async function (username, org) {
-    var options = {
-        uri: '',                //todo
-        qs: {
-            username: username,
-            org: org
-            //token
-        },
-        headers: {
-            'User-Agent': 'Request-Promise'
-        },
-        json: true
-    };
-    request(options)
-        .then(function (repos) {
-            if (repos.length > 0)
-                return true
-            else return false
-        })
-        .catch(function (err) {
-            console.log(err)
-            return false
-        });
-}//bool
-const validateInBlockchain = async function (username, password, org) {
-    var options = {
-        uri: '',                //todo
-        qs: {
-            username: username,
-            password: password,
-            org: org
-            //token
-        },
-        headers: {
-            'User-Agent': 'Request-Promise'
-        },
-        json: true
-    };
-    request(options)
-        .then(function (repos) {
-            if (repos.length > 0)
-                return true
-            else return false
-        })
-        .catch(function (err) {
-            console.log(err)
-            return false
-        });
-}//bool
-const getLoginInfoInBlockchain = async function (username, org) {
-    var options = {
-        uri: '',                //todo
-        qs: {
-            username: username,
-            org: org
-            //token
-        },
-        headers: {
-            'User-Agent': 'Request-Promise'
-        },
-        json: true
-    };
-    request(options)
-        .then(function (repos) {
-
-        })
-        .catch(function (err) {
-
-        });
-}//info
-const save2Blockchain = async function (username, password, org, info) {
-    var block = {
-        'username': username,
-        'password': password,
-        'org': org,
-        'info': info
-    }
-    var options = {
-        method: 'POST',
-        url: '',                //todo
-        body: block,
-        json: true
-    };
-    var response = await request(options).catch((err) => {
-        console.log(err)
-        return false
+    .catch(function (err) {
+        return {
+            returnSuccess: false,
+            info: err
+        }
     })
-    if (response) {
-        cons.log('receive log :' + response)
-        return true
+// 返回信息判断
+    var info = response.info
+    if(response.returnSuccess) {
+        info.state = true
+        return info
+    }else {
+        // 返回失败
+        return {
+            state: 'CHAINCODEERROR',
+            info: info
+        }
     }
-}//void
+}
+
 const authorizeOrg = async function (username, org, newOrg) {
     var authorization = {
         'username': username,
@@ -145,25 +48,76 @@ const authorizeOrg = async function (username, org, newOrg) {
     }
     var options = {
         method: 'POST',
-        url: '',                //todo
+        url: 'http://localhost:3000/api/org.acme.model.authorizeTranc',
         body: authorization,
         json: true
     };
-    var response = await request(options).catch((err) => {
-        console.log(err)
-        return false
+    var response = await request(options)
+    .then((response)=>{
+        return {
+            returnSuccess: true,
+            info: res
+        }
     })
-    if (response) {
-        cons.log('receive log :' + response)
-        return true
+    .catch(function (err) {
+        return {
+            returnSuccess: false,
+            info: err
+        }
+    })
+    // 返回信息判断
+    var info = response.info
+    if(response.returnSuccess) {
+        info.state = true
+        return info
+    }else {
+        // 返回失败
+        return {
+            state: 'CHAINCODEERROR',
+            info: info
+        }
     }
-}//void
+}
+const queryShareInfo = async function (username, org) {
+    var options = {
+        uri: 'http://localhost:3000/api//org.acme.model.ShareInfo/',              
+        qs: {
+            id: org + username
+        },
+        headers: {
+            'User-Agent': 'Request-Promise'
+        },
+        json: true
+    };
+    var response = await request(options)
+        .then((response)=>{
+            return {
+                returnSuccess: true,
+                info: res
+            }
+        })
+        .catch(function (err) {
+            return {
+                returnSuccess: false,
+                info: err
+            }
+        })
+    // 返回信息判断
+    var info = response.info
+    if(response.returnSuccess) {
+        info.state = true
+        return info
+    }else {
+        // 返回失败
+        return {
+            state: 'CHAINCODEERROR',
+            info: info
+        }
+    }
+}
+
 module.exports = {
     'add2Blockchain': add2Blockchain,
-    'queryAccountExist': queryAccountExist,
-    'queryPwdExist': queryPwdExist,
-    'validateInBlockchain': validateInBlockchain,
-    'getLoginInfoInBlockchain': getLoginInfoInBlockchain,
-    'save2Blockchain': save2Blockchain,
-    'authorizeOrg': authorizeOrg
+    'authorizeOrg': authorizeOrg,
+    'queryShareInfo': queryShareInfo
 }

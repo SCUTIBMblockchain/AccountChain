@@ -1,7 +1,9 @@
-var request=require('request')
+var request = require('request')
+var getUrl = require('../../config/org-config').getUrl
 const loginByOrg = async function (username,password,org) {
+    var orgUrl = getUrl(org)
     var options = {
-        uri: '',                //todo
+        uri: url + '/auth/user',              
         qs: {
             username: username,
             password:password,
@@ -13,20 +15,39 @@ const loginByOrg = async function (username,password,org) {
         },
         json: true
     };
-    request(options)
-        .then(function (repos) {
-            return respos        //存疑
+    var response = await request(options)
+        .then((response)=>{
+            return {
+                returnSuccess: true,
+                info: res
+            }
         })
         .catch(function (err) {
-            console.log(err)
-            return null
-        });
-}//response
-//获得当前org
-const getThisOrg=async function (params) {
+            return {
+                returnSuccess: false,
+                info: err
+            }
+        })
+    // 返回信息判断
+    var info = response.info
+    if(response.returnSuccess) {
+        // 返回成功
+        if(info.success){
+            info.state = true
+            return info
+        }else{
+            info.state = 'PWWRONG'
+            return info
+        }
+    }else {
+        // 返回失败
+        return {
+            state: 'SERVERERROR',
+            info: info
+        }
+    }
     
-}//string Org
+}
 module.exports={
-    'loginByOrg':loginByOrg,
-    'getThisOrg':getThisOrg
+    'loginByOrg':loginByOrg
 }

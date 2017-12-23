@@ -1,8 +1,8 @@
 var orgConfig ={
     thisOrg: 'org1',
     orgURL: {
-        "org1": "localhost",
-        "org2": "localhost"
+        "org1": "http://localhost",
+        "org2": "http://localhost"
     }
 }
 

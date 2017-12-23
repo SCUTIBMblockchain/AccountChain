@@ -15,22 +15,19 @@ const firstLogin = async function (accountInfo) {
     var username = accountInfo.username
     var password = accountInfo.password
     var org = accountInfo.organization
-    // todo 修改返回值
     const response = await loginIn.loginByOrg(username, password, org)
     var result = Object.create(Result)
     if (response.state === true) {
         var newOrg = getOrg()
-        // todo 修改函数
-        var addResult = await queryBlockchain.add2Blockchain(username, password, org, newOrg, result.info)
+        var addResult = await queryBlockchain.add2Blockchain(username, password, org, newOrg, response.shareInfo)
         if(addResult.state === true){
             result.state = 1
-            result.info = response.info
+            result.info = response.shareInfo
             result.token = getToken(org, username)
             return result
         } else {
             return failLogin(addResult)
         }
-        //Token
     } else {
         return failLogin(response)
     }
@@ -41,8 +38,7 @@ const authLogin = async function (accountInfo) {
     var org = accountInfo.organization
     var authorizeResult = await queryBlockchain.authorizeOrg(username, org, getOrg())
     if(authorizeResult){
-    // todo 新增该函数
-        var shareInfo =await queryBlockchain.queryShareInfo(shareInfoId)
+        var shareInfo = await queryBlockchain.queryShareInfo(shareInfoId)
         result.state = 1
         result.token = getToken(org, username)
         return result 
@@ -71,7 +67,6 @@ const noPwdLogin = async function (accountInfo) {
     const response = await loginIn.loginByOrg(username, password, org)
     var result = Object.create(Result)
     if (response.state == true) {
-        // todo 保存新密码函数
         var saveResult = account.savePassword(username, password, org)//保存到区块链
         if (saveResult == true) {
             if(auth){

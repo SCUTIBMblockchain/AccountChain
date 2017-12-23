@@ -1,5 +1,9 @@
 const bcrypt = require("bcryptjs")
 const getToken = function (org, username) {
+    return JSON.stringify({
+        org: org,
+        username: username
+    })
 }
 
 //https://www.npmjs.com/package/bcryptjs
