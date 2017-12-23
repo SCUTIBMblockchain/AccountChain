@@ -5,9 +5,11 @@ const bodyparser = require('koa-bodyparser')()
 const logger = require('koa-logger')
 const router = require('./app/routes/api')
 const request = require('koa-http-request')
+const cors = require('koa2-cors')
 const WebSocket = require('ws')
 const event = require('./app/controllers/event')
 //middleware
+app.use(cors())
 app.use(bodyparser)
 app.use(json())
 app.use(request({

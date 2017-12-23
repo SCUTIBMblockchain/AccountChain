@@ -21,6 +21,7 @@
     "koa-jwt": "latest",
     "koa-logger": "latest",
     "koa-router": "latest",
+    "koa2-cors": "^2.0.5",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5",
     "ws": "^3.3.3"
