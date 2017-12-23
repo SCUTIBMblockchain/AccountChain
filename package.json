@@ -23,6 +23,7 @@
     "koa-router": "latest",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5",
-    "ws": "^3.3.3"
+    "ws": "^3.3.3",
+    "crypto-js": "latest"
   }
 }
