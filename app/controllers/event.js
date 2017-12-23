@@ -14,9 +14,12 @@ function notify(info) {
     }
     var options = {
         method: 'POST',
-        url: url + '/auth/user/update',
+        url: url + '/auth/user/operation',
         body: detailInfo,
-        json: true
+        json: true,
+        headers: {
+            'Content-Type': 'application/json'
+        },
     };
     var response = request(options)
         .catch((err)=>{
