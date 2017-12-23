@@ -6,7 +6,7 @@ const add2Blockchain = async function (username, password, org, orgNew, info) {
         'password': password,
         'org': org,
         'orgNew': orgNew,
-        'sharedInfo': info
+        'shareInfo': info
     }
     var options = {
         method: 'POST',
@@ -17,7 +17,7 @@ const add2Blockchain = async function (username, password, org, orgNew, info) {
     var response = await request(options).then((response)=>{
         return {
             returnSuccess: true,
-            info: res
+            info: response
         }
     })
     .catch(function (err) {
@@ -56,7 +56,7 @@ const authorizeOrg = async function (username, org, newOrg) {
     .then((response)=>{
         return {
             returnSuccess: true,
-            info: res
+            info: response
         }
     })
     .catch(function (err) {
@@ -80,7 +80,7 @@ const authorizeOrg = async function (username, org, newOrg) {
 }
 const queryShareInfo = async function (username, org) {
     var options = {
-        uri: 'http://localhost:3000/api//org.acme.model.ShareInfo/',              
+        uri: 'http://localhost:3000/api/org.acme.model.ShareInfo/',              
         qs: {
             id: org + username
         },
@@ -93,7 +93,7 @@ const queryShareInfo = async function (username, org) {
         .then((response)=>{
             return {
                 returnSuccess: true,
-                info: res
+                info: response
             }
         })
         .catch(function (err) {
@@ -103,7 +103,7 @@ const queryShareInfo = async function (username, org) {
             }
         })
     // 返回信息判断
-    var info = response.info
+    var info = response.info[0]
     if(response.returnSuccess) {
         info.state = true
         return info

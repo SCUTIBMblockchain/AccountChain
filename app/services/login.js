@@ -14,7 +14,7 @@ var Result = {
 const firstLogin = async function (accountInfo) {
     var username = accountInfo.username
     var password = accountInfo.password
-    var org = accountInfo.organization
+    var org = accountInfo.org
     const response = await loginIn.loginByOrg(username, password, org)
     var result = Object.create(Result)
     if (response.state === true) {
@@ -38,9 +38,11 @@ const authLogin = async function (accountInfo) {
     var org = accountInfo.organization
     var authorizeResult = await queryBlockchain.authorizeOrg(username, org, getOrg())
     if(authorizeResult){
-        var shareInfo = await queryBlockchain.queryShareInfo(shareInfoId)
+        var shareInfo = await queryBlockchain.queryShareInfo(username,org)
+        var result = {}
         result.state = 1
         result.token = getToken(org, username)
+        result.info = shareInfo
         return result 
     } else {
         return failLogin(authorizeResult)
@@ -86,7 +88,7 @@ const noPwdLogin = async function (accountInfo) {
 const failLogin = function (res) {
     var result = Object.create(Result)
     switch (res.state) {
-        case 'PASSWORDWRONG':
+        case 'PWWRONG':
             result.state = 2
             break;
         case 'CHAINCODEERROR':

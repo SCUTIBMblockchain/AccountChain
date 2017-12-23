@@ -1,20 +1,18 @@
 const editFnc = require('../services/edit')
 const edit = async function (ctx, next) {
    var type = ctx.request.body.type
+   var token = ctx.request.body.token
+   if(token) {
+    var userInfo = JSON.parse(token)
+    }
    var info = {
     org: ctx.request.body.org,
     username: ctx.request.body.username,
-    token: ctx.request.body.token,
     key: ctx.request.body.key,
     newValue: ctx.request.body.value
    }
-   if(!info.token) {
-       // todo 解密
-       var userInfo = JSON.parse(userInfo)
-       info.org = userInfo.org
-       info.username = userInfo.username
-   }
-   var loginInfo = ctx.request.body.loginInfo
+   
+   
    var state = ''
    switch (type) {
         case '0':

@@ -1,9 +1,9 @@
 const auth = require('../network/queryBlockchain').authorizeOrg
-const getOrg = require('../../config/org-config')
+const getOrg = require('../../config/org-config').getOrg
 const checkAccount = function (accounts, password) {
     var result = {}
-    result.info = account
     var account = accounts[0]
+    result.info = account
     // 为空说明区块链内不存在
     if(accounts.length == 0){
         result.state = 'FIRST'
@@ -40,7 +40,9 @@ const validPassword = function (password, passwordToValid) {
     return password==passwordToValid
 }
 const validAuth = function (authOrgs, org) {
-   if(authOrgs.find(org)){
+   if(authOrgs.find((value)=>{
+       return value == org
+   })){
        return true
    }else {
        return false

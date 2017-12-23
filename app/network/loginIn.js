@@ -1,14 +1,13 @@
-var request = require('request')
+var request = require('request-promise-native')
 var getUrl = require('../../config/org-config').getUrl
 const loginByOrg = async function (username,password,org) {
     var orgUrl = getUrl(org)
     var options = {
-        uri: url + '/auth/user',              
-        qs: {
-            username: username,
-            password:password,
-            org: org
-            //token
+        method:'POST',
+        url: orgUrl + '/auth/user',              
+        body: {
+            account: username,
+            password:password
         },
         headers: {
             'User-Agent': 'Request-Promise'
@@ -19,7 +18,7 @@ const loginByOrg = async function (username,password,org) {
         .then((response)=>{
             return {
                 returnSuccess: true,
-                info: res
+                info: response
             }
         })
         .catch(function (err) {

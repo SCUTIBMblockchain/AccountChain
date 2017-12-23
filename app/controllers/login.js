@@ -13,12 +13,19 @@ const login = async function (ctx, next) {
     var state = 1
     var result = ''
 
-    var name = ctx.request.body.name || '',
+    var username = ctx.request.body.username || '',
         password = ctx.request.body.password || '',
         org = ctx.request.body.org || '';
 
-    var account = await getccountInfo(name, org)
-    var acountState = checkAccount(account)
+    var account = await getAccountInfo(username, org)
+    var accountState = checkAccount(account, password)
+    if(!accountState.info){
+        accountState.info = {
+            username: username,
+            org: org,
+            password: password
+        }
+    }
     var loginResult =  await loginFnc[accountState.state](accountState.info)
 
     ctx.body = {

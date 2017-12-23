@@ -2,7 +2,7 @@ const request = require('request-promise-native')
 const update = async function (info) {
     var options = {
         method: 'POST',
-        url:'http://localhost:3000/api/org.acme.model.updateTranc',
+        url:'http://localhost:3000/api/org.acme.model.updateShareInfoTranc',
         body: info,
         json: true
     };

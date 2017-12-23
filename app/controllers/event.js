@@ -3,11 +3,11 @@ const getOrg = require('../../config/org-config').getOrg
 const request = require('request-promise-native')
 function notify(info) {
     var detailInfo=JSON.parse(info);
-    var orgs=detailInfo.org;
+    var orgs=detailInfo.orgs;
     var org = getOrg()
     var url= getUrl(org)
     var result = orgs.find((value)=>{
-        return value === org
+        return value == org
     })
     if(!result){
         return 
