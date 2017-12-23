@@ -55,6 +55,7 @@ const usualLogin = async function (accountInfo) {
     var org = accountInfo.organization
     // 调整登陆验证
     var result = Object.create(Result)
+    result.state = 1
     result.token = getToken(username, org)
     return result
 }
