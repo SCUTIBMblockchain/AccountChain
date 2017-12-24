@@ -17,7 +17,7 @@ app.use(request({
 }))
 app.use(logger())
 app.use(router.routes())
-app.listen(8889)
+app.listen(8888)
 //ws
 // ! rest服务器不使用请注释ws部分, 否则报错
 const ws = new WebSocket('ws://localhost:3000')
@@ -25,5 +25,5 @@ ws.on('open', function open() {
    console.log('success connect to the server')
    ws.on("message", event.notify)
  })
-console.log('app started at port 8889...')
+console.log('app started at port 8888...')
 module.exports = app
